@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="plunker">
+  
+  <head lang="en">
+    <meta charset="utf-8">
+    <title>Custom Plunker</title>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.0/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <script>
+      document.write('<base href="' + document.location + '" />');
+    </script>
+    <script src="app.js"></script>
+    <script src="topologicalSort.js"></script>
+  </head>
+  
+  <body ng-controller="MainCtrl" class="container-fluid">
+     <h3>Topological Sort <a href="testRunner.html"><small>(Run unit tests)</small></a></h3>
+
+    <p><b>Instructions:</b> Enter a few elements, select each element, check their dependencies
+      and click on sort. The result will be one possible order where each element required
+      is before the elements that require it.</p>
+    <div class="row-fluid">
+      <div class="span6 well" ng-show="elements.length">
+        <h4>Elements</h4>
+        <div ng-repeat="element in elements">
+          <input type="radio" name="elementGroup" ng-value="element" ng-model="form.select">
+          {{element.name}}
+        </div>
+      </div>
+      
+      <div class="span6 well" ng-show="form.select">
+        <h4>Dependencies</h4>
+        <div ng-repeat="element in elements">
+          <input type="checkbox" ng-value="$scope.required = form.select.require[element.name]"
+                 ng-model="$scope.required" ng-change="requiredChanged(element.name)">
+          {{element.name}}
+        </div>
+      </div>
+    </div>
+    
+    <div class="well">
+      <form ng-submit="add()">
+        <label>Add element:</label>
+        <input class="span6" type="text" ng-model="form.text" placeholder="enter an element (press enter to add it)" required>
+      </form>
+      <button class="btn btn-primary" ng-click="sort()">Sort elements</button>
+
+      <h4 ng-show="result">Result: </h4>
+      <p>{{result.error}}</p>
+      <ul ng-hide="result.error">
+        <li ng-repeat="element in result.order">{{element}}</li>
+      </ul>
+    </div>
+  </body>
+
+</html>

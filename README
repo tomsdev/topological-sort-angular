@@ -1,1 +1,5 @@
-This file was created by JetBrains WebStorm 5.0.4 for binding GitHub repository
+An application of topological sort to order the elements entered by the user depending on their dependencies.
+
+The algorithm is based on Depth First Search, the UI and the service is built using AngularJS and the code is unit tested with Jasmine.
+
+The UI is interesting because the checkboxes have to be bound to the actual dependencies of the element selected.
